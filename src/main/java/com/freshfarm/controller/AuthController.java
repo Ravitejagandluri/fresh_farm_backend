@@ -1,25 +1,32 @@
 package com.freshfarm.controller;
 
-import com.freshfarm.entity.User;
+import com.freshfarm.dto.AuthResponse;
+import com.freshfarm.dto.LoginRequest;
+import com.freshfarm.dto.SignupRequest;
 import com.freshfarm.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class AuthController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/signup")
-    public User signup(@RequestBody User user) {
-        return userService.register(user);
+    public ResponseEntity<AuthResponse> signup(@RequestBody SignupRequest request) {
+        AuthResponse response = userService.register(request);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
-    public User login(@RequestBody User user) {
-        return userService.login(user.getEmail(), user.getPassword());
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
+        AuthResponse response = userService.login(request);
+        return ResponseEntity.ok(response);
     }
 }

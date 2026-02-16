@@ -1,59 +1,18 @@
-package com.freshfarm.entity;
+package com.freshfarm.dto;
 
-import jakarta.persistence.*;
-import java.time.Instant;
-
-@Entity
-@Table(name = "users")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ProfileResponse {
     private Long id;
-
     private String name;
-
-    @Column(unique = true)
     private String email;
-
-    private String password;
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
     private String phone;
-
-    @Column(name = "farm_name")
     private String farmName;
-
     private String location;
-
-    @Column(name = "farming_type")
     private String farmingType;
-
-    @Column(name = "farm_size")
     private String farmSize;
-
     private String irrigation;
-
-    @Column(name = "main_crops")
     private String mainCrops;
-
-    @Column(name = "harvest_frequency")
     private String harvestFrequency;
-
-    @Column(name = "is_available")
-    private Boolean isAvailable = true;
-
-    @Column(name = "created_at")
-    private Instant createdAt;
-
-    @PrePersist
-    public void prePersist() {
-        if (createdAt == null) {
-            createdAt = Instant.now();
-        }
-    }
+    private Boolean isAvailable;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -63,12 +22,6 @@ public class User {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
-
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
-
-    public Role getRole() { return role; }
-    public void setRole(Role role) { this.role = role; }
 
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
@@ -96,7 +49,4 @@ public class User {
 
     public Boolean getIsAvailable() { return isAvailable; }
     public void setIsAvailable(Boolean isAvailable) { this.isAvailable = isAvailable; }
-
-    public Instant getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
 }
